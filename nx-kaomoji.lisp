@@ -3,23 +3,30 @@
 (in-package #:nx-kaomoji)
 
 (defun parse-kaomojis ()
-  (let* ((kao-json (cl-json:decode-json-from-source
-                    (asdf:system-relative-pathname
-                     :nx-kaomoji "kaomoji/data/jp.json"))))
-    (alexandria:mappend #'(lambda (category)
-                            (let ((category-name (alexandria:assoc-value category :name))
-                                  (counter 0))
-                              (mapcar
-                               #'(lambda (entry)
-                                   (make-instance
-                                    'nyxt:autofill
-                                    :key (prog1 (str:concat (str:downcase category-name)
-                                                            (format nil "~d" counter))
-                                           (incf counter))
-                                    :name (alexandria:assoc-value entry :description)
-                                    :fill (alexandria:assoc-value entry :emoticon)))
-                               (alexandria:assoc-value category :entries))))
-                        (alexandria:assoc-value kao-json :categories))))
+  (let ((emoticons (cl-csv:read-csv
+                    (uiop:read-file-string
+                     (asdf:system-relative-pathname
+                      :nx-kaomoji "splatmoji/data/emoticons/emoticons.tsv"))
+                    :separator #\Tab :escape nil :quote nil))
+        (counter 0))
+    (alexandria:mappend #'(lambda (em)
+                            (let ((emoticon (first em))
+                                  (tags (mapcar #'str:trim (str:split "," (second em)))))
+                              (incf counter)
+                              (if (serapeum:single tags)
+                                  (list (make-instance
+                                         'nyxt:autofill
+                                         :key (str:concat (first tags) (format nil "~d" counter))
+                                         :name (first tags)
+                                         :fill emoticon))
+                                  (mapcar #'(lambda (tag)
+                                              (make-instance
+                                               'nyxt:autofill
+                                               :key (str:concat tag (format nil "~d" counter))
+                                               :name tag
+                                               :fill emoticon))
+                                          tags))))
+                        emoticons)))
 
 (defvar *kaomojis* (parse-kaomojis))
 
