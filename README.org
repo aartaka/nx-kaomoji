@@ -1,0 +1,31 @@
+#+TITLE:Kaomoji in Nyxt ＼(〇O〇)／
+
+This extension aims to help you paste your favorite kaomojis on the
+Internet with ease ヾ(＠゜▽゜＠）ノ
+
+Just call =kaomoji-fill= and choose the one you like ☆彡
+
+* Getting Started
+Clone the repo to your machine:
+#+begin_src sh
+  git clone https://github.com/aartaka/nx-kaomoji
+#+end_src
+Then, add these lines to your Nyxt init.lisp:
+#+begin_src lisp
+  (asdf:load-asd "/path/to/checked-out/nx-kaomoji/nx-kaomoji.asd")
+  (load-after-system :nx-kaomoji (nyxt-init-file "kaomoji.lisp"))
+#+end_src
+And create kaomoji.lisp next to init.lisp. Put these lines in it:
+#+begin_src lisp
+  ;;; kaomoji.lisp
+  (in-package #:nyxt-user)
+
+  (define-configuration buffer
+    ((override-map (keymap:define-key %slot-default
+                     "C-c K" 'kaomoji-fill))))
+#+end_src
+And you're good to go! Press the =Control-c K= and paste your favorite
+Kaomoji wherever you like ᕦ(ò_óˇ)ᕤ
+* Plans
+- Move to an [[https://github.com/cspeterson/splatmoji][active emoticons database]].
+- Maybe extend to all emoticons ¯\_(ツ)_/¯
