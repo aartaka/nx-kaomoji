@@ -6,6 +6,6 @@
   :license  "BSD 2-clause"
   :version "0.9"
   :serial t
-  :depends-on (#:nyxt #:cl-csv)
+  :depends-on (#:nyxt)
   :components ((:file "package")
                (:file "nx-kaomoji")))

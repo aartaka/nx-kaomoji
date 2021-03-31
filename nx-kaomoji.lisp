@@ -3,11 +3,10 @@
 (in-package #:nx-kaomoji)
 
 (defun parse-kaomojis ()
-  (let ((emoticons (cl-csv:read-csv
-                    (uiop:read-file-string
-                     (asdf:system-relative-pathname
-                      :nx-kaomoji "splatmoji/data/emoticons/emoticons.tsv"))
-                    :separator #\Tab :escape nil :quote nil))
+  (let ((emoticons (mapcar (alexandria:curry #'str:split (string #\Tab))
+                           (uiop:read-file-lines
+                            (asdf:system-relative-pathname
+                             :nx-kaomoji "splatmoji/data/emoticons/emoticons.tsv"))))
         (counter 0))
     (alexandria:mappend #'(lambda (em)
                             (let ((emoticon (first em))
