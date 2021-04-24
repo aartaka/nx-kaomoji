@@ -27,7 +27,6 @@
 
 (define-class kaomoji-source (prompter:source)
   ((prompter:name "Kaomojis")
-   (prompter:must-match-p t)
    (prompter:constructor nx-kaomoji:*kaomojis*)
    (prompter:actions
     (list (make-command autofill* (autofills)
