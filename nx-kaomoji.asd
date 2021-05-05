@@ -4,7 +4,7 @@
   :description "Describe nx-kaomoji here"
   :author "Artyom Bologov"
   :license  "BSD 2-clause"
-  :version "0.9"
+  :version "1.0"
   :serial t
   :depends-on (#:nyxt)
   :components ((:file "package")
