@@ -1,7 +1,3 @@
-[submodule "kaomoji"]
-	path = kaomoji
-	url = https://github.com/kxxoling/kaomoji
-
 [submodule "splatmoji"]
 	path = splatmoji
 	url = https://github.com/cspeterson/splatmoji
