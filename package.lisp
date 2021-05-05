@@ -6,7 +6,9 @@
                 #:define-class
                 #:define-mode
                 #:define-command
-                #:autofill)
+                #:autofill
+                #:autofill-name
+                #:autofill-fill)
   (:export #:kaomoji-fill
            #:*kaomojis*
            #:parse-kaomojis))

@@ -2,6 +2,13 @@
 
 (in-package #:nx-kaomoji)
 
+(define-class kaomoji (autofill)
+  ()
+  (:export-class-name-p t)
+  (:export-accessor-names-p t)
+  (:accessor-name-transformer (hu.dwim.defclass-star:make-name-transformer name))
+  (:documentation "An inherited `nyxt:autofill' to define custom prompt-buffer attributes."))
+
 (defun parse-kaomojis ()
   (let ((emoticons (mapcar (alexandria:curry #'str:split (string #\Tab))
                            (uiop:read-file-lines
@@ -14,7 +21,7 @@
                               (incf counter)
                               (if (serapeum:single tags)
                                   (list (make-instance
-                                         'nyxt:autofill
+                                         'kaomoji
                                          :key (str:concat (first tags) (format nil "~d" counter))
                                          :name (first tags)
                                          :fill emoticon))
@@ -26,6 +33,13 @@
                                                :fill emoticon))
                                           tags))))
                         emoticons)))
+
+(defmethod prompter:object-attributes ((kaomoji kaomoji))
+  `(("Name" ,(autofill-name kaomoji))
+    ("Fill" ,(let ((f (autofill-fill kaomoji)))
+               (typecase f
+                 (string (write-to-string f))
+                 (t "function"))))))
 
 (defvar *kaomojis* (parse-kaomojis))
 
