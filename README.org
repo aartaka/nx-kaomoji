@@ -27,5 +27,4 @@ And create kaomoji.lisp next to init.lisp. Put these lines in it:
 And you're good to go! Press the =Control-c K= and paste your favorite
 Kaomoji wherever you like ᕦ(ò_óˇ)ᕤ
 * Plans
-- Move to an [[https://github.com/cspeterson/splatmoji][active emoticons database]].
 - Maybe extend to all emoticons ¯\_(ツ)_/¯
