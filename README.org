@@ -14,7 +14,6 @@ Clone the repo to your machine:
 #+end_src
 Then, add these lines to your Nyxt init.lisp:
 #+begin_src lisp
-  (asdf:load-asd "/path/to/checked-out/nx-kaomoji/nx-kaomoji.asd")
   (load-after-system :nx-kaomoji (nyxt-init-file "kaomoji.lisp"))
 #+end_src
 And create kaomoji.lisp next to init.lisp. Put these lines in it:
