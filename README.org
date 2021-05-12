@@ -8,7 +8,9 @@ Just call =kaomoji-fill= and choose the one you like ☆彡
 * Getting Started
 Clone the repo to your machine:
 #+begin_src sh
-  git clone --recursive https://github.com/aartaka/nx-kaomoji
+  # The ~/.local/share/nyxt/extensions/ is the default path Nyxt looks
+  # for extensions in. Change to wherever you set your extension path.
+  git clone --recursive https://github.com/aartaka/nx-kaomoji ~/.local/share/nyxt/extensions/nx-kaomoji
 #+end_src
 Then, add these lines to your Nyxt init.lisp:
 #+begin_src lisp
