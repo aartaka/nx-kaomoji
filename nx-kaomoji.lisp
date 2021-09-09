@@ -57,11 +57,11 @@
                      (%paste :input-text (funcall (autofill-fill selected-fill))))))))))
   (:export-class-name-p t))
 
-(define-command refresh-kaomojis ()
+(define-command-global refresh-kaomojis ()
   "Refresh the kaomojis list."
   (setf nx-kaomoji:*kaomojis* (nx-kaomoji:parse-kaomojis)))
 
-(define-command kaomoji-fill ()
+(define-command-global kaomoji-fill ()
   "Autofill the currently focused input field with the chosen Kaomoji."
   (prompt
    :prompt "Kaomoji"
