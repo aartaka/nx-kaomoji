@@ -5,10 +5,13 @@
   (:import-from #:nyxt
                 #:define-class
                 #:define-mode
-                #:define-command
+                #:define-command-global
                 #:autofill
                 #:autofill-name
-                #:autofill-fill)
+                #:autofill-fill
+                #:prompt
+                #:%paste
+                #:make-command)
   (:export #:kaomoji-fill
            #:*kaomojis*
            #:parse-kaomojis))

@@ -41,11 +41,9 @@
 
 (defvar *kaomojis* (parse-kaomojis))
 
-(in-package #:nyxt)
-
 (define-class kaomoji-source (prompter:source)
   ((prompter:name "Kaomojis")
-   (prompter:constructor nx-kaomoji:*kaomojis*)
+   (prompter:constructor *kaomojis*)
    (prompter:actions
     (list (make-command autofill* (autofills)
             (let ((selected-fill (first autofills)))
@@ -57,7 +55,7 @@
 
 (define-command-global refresh-kaomojis ()
   "Refresh the kaomojis list."
-  (setf nx-kaomoji:*kaomojis* (nx-kaomoji:parse-kaomojis)))
+  (setf *kaomojis* (parse-kaomojis)))
 
 (define-command-global kaomoji-fill ()
   "Autofill the currently focused input field with the chosen Kaomoji."
