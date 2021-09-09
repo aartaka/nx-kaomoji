@@ -22,13 +22,11 @@
                               (if (serapeum:single tags)
                                   (list (make-instance
                                          'kaomoji
-                                         :key (str:concat (first tags) (format nil "~d" counter))
                                          :name (first tags)
                                          :fill emoticon))
                                   (mapcar #'(lambda (tag)
                                               (make-instance
                                                'nyxt:autofill
-                                               :key (str:concat tag (format nil "~d" counter))
                                                :name tag
                                                :fill emoticon))
                                           tags))))
