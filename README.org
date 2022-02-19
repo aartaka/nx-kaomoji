@@ -23,7 +23,7 @@ And create kaomoji.lisp next to init.lisp. Put these lines in it:
 
   (define-configuration buffer
     ((override-map (keymap:define-key %slot-default
-                     "C-c K" 'kaomoji-fill))))
+                     "C-c K" 'nx-kaomoji:kaomoji-fill))))
 #+end_src
 And you're good to go! Press the =Control-c K= and paste your favorite
 Kaomoji wherever you like ᕦ(ò_óˇ)ᕤ
