@@ -11,7 +11,8 @@
                 #:autofill-fill
                 #:prompt
                 #:%paste
-                #:make-command)
+                #:make-command
+                #:lambda-command)
   (:export #:kaomoji-fill
            #:*kaomojis*
            #:parse-kaomojis))

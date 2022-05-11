@@ -45,12 +45,19 @@
   ((prompter:name "Kaomojis")
    (prompter:constructor *kaomojis*)
    (prompter:actions
-    (list (make-command autofill* (autofills)
-            (let ((selected-fill (first autofills)))
-              (cond ((stringp (autofill-fill selected-fill))
-                     (%paste :input-text (autofill-fill selected-fill)))
-                    ((functionp (autofill-fill selected-fill))
-                     (%paste :input-text (funcall (autofill-fill selected-fill))))))))))
+    (list
+     #+nyxt-2
+     (make-command autofill* (autofills)
+       (let* ((selected-fill (first autofills))
+              (fill (autofill-fill selected-fill))
+              (value (if (functionp fill) (funcall fill) fill)))
+         (nyxt:%paste :input-text value)))
+     #+nyxt-3
+     (nyxt:lambda-command autofill* (autofills)
+       (let* ((selected-fill (first autofills))
+              (fill (autofill-fill selected-fill))
+              (value (if (functionp fill) (funcall fill) fill)))
+         (nyxt:%paste :input-text value))))))
   (:export-class-name-p t))
 
 (define-command-global refresh-kaomojis ()
