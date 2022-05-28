@@ -20,15 +20,9 @@
                                   (tags (mapcar #'str:trim (str:split "," (second em)))))
                               (incf counter)
                               (if (serapeum:single tags)
-                                  (list (make-instance
-                                         'kaomoji
-                                         :name (first tags)
-                                         :fill emoticon))
+                                  (list (make-instance 'kaomoji :name (first tags) :fill emoticon))
                                   (mapcar #'(lambda (tag)
-                                              (make-instance
-                                               'nyxt:autofill
-                                               :name tag
-                                               :fill emoticon))
+                                              (make-instance 'kaomoji :name tag :fill emoticon))
                                           tags))))
                         emoticons)))
 
