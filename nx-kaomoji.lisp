@@ -38,7 +38,8 @@
 (define-class kaomoji-source (prompter:source)
   ((prompter:name "Kaomojis")
    (prompter:constructor *kaomojis*)
-   (prompter:actions
+   (#+nyxt-2 prompter:actions
+    #+nyxt-3 prompter:return-actions
     (list
      #+nyxt-2
      (make-command autofill* (autofills)
