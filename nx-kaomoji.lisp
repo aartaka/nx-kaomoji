@@ -2,6 +2,7 @@
 
 (in-package #:nx-kaomoji)
 
+#+nyxt-2
 (define-class kaomoji (autofill)
   ()
   (:export-class-name-p t)
@@ -20,12 +21,17 @@
                                   (tags (mapcar #'str:trim (str:split "," (second em)))))
                               (incf counter)
                               (if (serapeum:single tags)
-                                  (list (make-instance 'kaomoji :name (first tags) :fill emoticon))
+                                  (list (make-instance #+nyxt-2 'kaomoji
+                                                       #+nyxt-3 'autofill
+                                                       :name (first tags) :fill emoticon))
                                   (mapcar #'(lambda (tag)
-                                              (make-instance 'kaomoji :name tag :fill emoticon))
+                                              (make-instance #+nyxt-2 'kaomoji
+                                                             #+nyxt-3 'autofill
+                                                             :name tag :fill emoticon))
                                           tags))))
                         emoticons)))
 
+#+nyxt-2
 (defmethod prompter:object-attributes ((kaomoji kaomoji))
   `(("Name" ,(autofill-name kaomoji))
     ("Fill" ,(let ((f (autofill-fill kaomoji)))
@@ -54,6 +60,11 @@
               (value (if (functionp fill) (funcall fill) fill)))
          (nyxt:%paste :input-text value))))))
   (:export-class-name-p t))
+
+#+nyxt-3
+(defmethod prompter:object-attributes ((kaomoji autofill) (source kaomoji-source))
+  `(("Name" ,(autofill-name kaomoji))
+    ("Fill" ,(write-to-string (autofill-fill kaomoji)))))
 
 (define-command-global refresh-kaomojis ()
   "Refresh the kaomojis list."
