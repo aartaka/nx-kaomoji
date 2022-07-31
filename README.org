@@ -14,7 +14,11 @@ Clone the repo to your machine:
 #+end_src
 Then, add these lines to your Nyxt init.lisp:
 #+begin_src lisp
+  ,#+nyxt-2
   (load-after-system :nx-kaomoji (nyxt-init-file "kaomoji.lisp"))
+  ,#+nyxt-3
+  (define-nyxt-user-system-and-load "nyxt-user/kaomoji"
+       :depends-on (:nx-kaomoji) :components ("kaomoji.lisp"))
 #+end_src
 And create kaomoji.lisp next to init.lisp. Put these lines in it:
 #+begin_src lisp
@@ -27,5 +31,3 @@ And create kaomoji.lisp next to init.lisp. Put these lines in it:
 #+end_src
 And you're good to go! Press the =Control-c K= and paste your favorite
 Kaomoji wherever you like ᕦ(ò_óˇ)ᕤ
-* Plans
-- Maybe extend to all emoticons ¯\_(ツ)_/¯
