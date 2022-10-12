@@ -58,7 +58,7 @@
        (let* ((selected-fill (first autofills))
               (fill (autofill-fill selected-fill))
               (value (if (functionp fill) (funcall fill) fill)))
-         (ffi-buffer-paste value))))))
+         (ffi-buffer-paste (current-buffer) value))))))
   (:export-class-name-p t))
 
 #+nyxt-3
