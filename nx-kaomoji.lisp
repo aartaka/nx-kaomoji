@@ -31,6 +31,25 @@
                                           tags))))
                         emoticons)))
 
+(defvar *kaomojis* (parse-kaomojis))
+#+nyxt-2
+(define-class kaomoji-source (prompter:source)
+  ((prompter:name "Kaomojis")
+   (prompter:constructor *kaomojis*)
+   (prompter:actions
+    (list
+     (make-command autofill* (autofills)
+                   (let* ((selected-fill (first autofills))
+                          (fill (autofill-fill selected-fill))
+                          (value (if (functionp fill) (funcall fill) fill)))
+                     (nyxt:%paste :input-text value))))))
+  (:export-class-name-p t))
+#+nyxt-3
+(define-class kaomoji-source (nyxt/autofill-mode:autofill-source)
+  ((prompter:name "Kaomojis")
+   (prompter:constructor *kaomojis*))
+  (:export-class-name-p t))
+
 #+nyxt-2
 (defmethod prompter:object-attributes ((kaomoji kaomoji))
   `(("Name" ,(autofill-name kaomoji))
@@ -38,29 +57,6 @@
                (typecase f
                  (string (write-to-string f))
                  (t "function"))))))
-
-(defvar *kaomojis* (parse-kaomojis))
-
-(define-class kaomoji-source (prompter:source)
-  ((prompter:name "Kaomojis")
-   (prompter:constructor *kaomojis*)
-   (#+nyxt-2 prompter:actions
-    #+nyxt-3 prompter:return-actions
-    (list
-     #+nyxt-2
-     (make-command autofill* (autofills)
-       (let* ((selected-fill (first autofills))
-              (fill (autofill-fill selected-fill))
-              (value (if (functionp fill) (funcall fill) fill)))
-         (nyxt:%paste :input-text value)))
-     #+nyxt-3
-     (nyxt:lambda-command autofill* (autofills)
-       (let* ((selected-fill (first autofills))
-              (fill (autofill-fill selected-fill))
-              (value (if (functionp fill) (funcall fill) fill)))
-         (ffi-buffer-paste (current-buffer) value))))))
-  (:export-class-name-p t))
-
 #+nyxt-3
 (defmethod prompter:object-attributes ((kaomoji autofill) (source kaomoji-source))
   `(("Name" ,(autofill-name kaomoji))
