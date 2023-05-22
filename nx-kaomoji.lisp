@@ -45,7 +45,7 @@
                      (nyxt:%paste :input-text value))))))
   (:export-class-name-p t))
 #+nyxt-3
-(define-class kaomoji-source (nyxt/autofill-mode:autofill-source)
+(define-class kaomoji-source (autofill-source)
   ((prompter:name "Kaomojis")
    (prompter:constructor *kaomojis*))
   (:export-class-name-p t))
