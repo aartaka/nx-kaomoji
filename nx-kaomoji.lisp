@@ -22,11 +22,11 @@
                               (incf counter)
                               (if (serapeum:single tags)
                                   (list (make-instance #+nyxt-2 'kaomoji
-                                                       #+nyxt-3 'autofill
+                                                       #+(or nyxt-3 nyxt-4) 'autofill
                                                        :name (first tags) :fill emoticon))
                                   (mapcar #'(lambda (tag)
                                               (make-instance #+nyxt-2 'kaomoji
-                                                             #+nyxt-3 'autofill
+                                                             #+(or nyxt-3 nyxt-4) 'autofill
                                                              :name tag :fill emoticon))
                                           tags))))
                         emoticons)))
@@ -44,7 +44,7 @@
                           (value (if (functionp fill) (funcall fill) fill)))
                      (nyxt:%paste :input-text value))))))
   (:export-class-name-p t))
-#+nyxt-3
+#+(or nyxt-3 nyxt-4)
 (define-class kaomoji-source (autofill-source)
   ((prompter:name "Kaomojis")
    (prompter:constructor *kaomojis*))
@@ -57,7 +57,7 @@
                (typecase f
                  (string (write-to-string f))
                  (t "function"))))))
-#+nyxt-3
+#+(or nyxt-3 nyxt-4)
 (defmethod prompter:object-attributes ((kaomoji autofill) (source kaomoji-source))
   `(("Name" ,(autofill-name kaomoji))
     ("Fill" ,(write-to-string (autofill-fill kaomoji)))))

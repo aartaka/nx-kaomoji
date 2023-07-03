@@ -19,7 +19,7 @@
            #:*kaomojis*
            #:parse-kaomojis))
 
-#+nyxt-3
+#+(or nyxt-3 nyxt-4)
 (nyxt:define-package #:nx-kaomoji
   (:import-from
    #:nyxt/mode/autofill
